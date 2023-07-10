@@ -33,7 +33,7 @@ const init = async () => {
   const authorizationService = new AuthorizationServices(userService)
 
   const server = Hapi.Server({
-    host: process.env.HTTPS_HOST,
+    host: process.env.NODE_ENV !== 'production' ? 'localhost' : '0.0.0.0',
     port: process.env.HTTPS_PORT,
     routes: {
       cors: {
