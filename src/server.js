@@ -10,6 +10,10 @@ const users = require('./api/user')
 const UsersService = require('./service/database/userServices')
 const UsersValidator = require('./validator/users')
 
+const fruits = require('./api/fruits')
+const FruitsService = require('./service/database/fruitsServices')
+const FruitsValidator = require('./validator/fruits')
+
 const authentications = require('./api/authentication')
 const AuthenticationsService = require('./service/database/authenticationServices')
 const TokenManager = require('./jwt/TokenManager')
@@ -29,6 +33,7 @@ const {
 
 const init = async () => {
   const userService = new UsersService()
+  const fruitService = new FruitsService()
   const authenticationService = new AuthenticationsService()
   const authorizationService = new AuthorizationServices(userService)
 
@@ -71,6 +76,13 @@ const init = async () => {
         service: userService,
         authorizationService,
         validator: UsersValidator
+      }
+    },
+    {
+      plugin: fruits,
+      options: {
+        service: fruitService,
+        validator: FruitsValidator
       }
     },
     {
